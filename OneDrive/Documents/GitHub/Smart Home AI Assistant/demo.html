@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Home AI - Basic vs Full AI Demo</title>
+    <style>
+        body {            const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${demoApiKey}`, {            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #1a1a1a;
+            color: white;
+        }
+        .demo-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .demo-section {
+            background: #2a2a2a;
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid #444;
+        }
+        .demo-section.basic {
+            border-color: #ff9800;
+        }
+        .demo-section.full {
+            border-color: #4CAF50;
+        }
+        .demo-title {
+            font-size: 1.5em;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #444;
+        }
+        .demo-title.basic {
+            color: #ff9800;
+        }
+        .demo-title.full {
+            color: #4CAF50;
+        }
+        .test-button {
+            background: #555;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            margin: 8px 0;
+            border-radius: 6px;
+            cursor: pointer;
+            width: 100%;
+            text-align: left;
+            font-size: 14px;
+        }
+        .test-button:hover {
+            background: #666;
+        }
+        .response-area {
+            background: #333;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            min-height: 100px;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .api-setup {
+            background: #2a2a2a;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #4CAF50;
+        }
+        .warning {
+            background: #3a2a1a;
+            border: 2px solid #ff9800;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🤖 Smart Home AI Assistant Demo</h1>
+        <h2>Basic Mode vs Full AI Intelligence</h2>
+    </div>
+
+    <div class="warning">
+        <h3>⚠️ This is a demonstration of the difference</h3>
+        <p><strong>Basic Mode:</strong> Limited responses, encourages API key setup<br>
+        <strong>Full AI Mode:</strong> Requires a real Gemini API key to demonstrate</p>
+    </div>
+
+    <div class="api-setup">
+        <h3>🔓 Unlock Full AI Mode</h3>
+        <p>To see the full AI responses, add your Gemini API key:</p>
+        <input type="password" id="demoApiKey" placeholder="Enter your Gemini API key" 
+               style="width: 70%; padding: 10px; margin-right: 10px; background: #333; color: white; border: 1px solid #666; border-radius: 4px;">
+        <button onclick="setApiKey()" style="padding: 10px 20px; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">Enable Full AI</button>
+        <div id="apiKeyStatus" style="margin-top: 10px; font-size: 0.9em;"></div>
+    </div>
+
+    <div class="demo-container">
+        <div class="demo-section basic">
+            <div class="demo-title basic">🔒 Basic Mode (No API Key)</div>
+            <p style="color: #aaa;">Limited intelligence, encourages API setup</p>
+            
+            <button class="test-button" onclick="testBasic('what is your name')">❓ "What is your name?"</button>
+            <button class="test-button" onclick="testBasic('10 + 10')">🧮 "10 + 10"</button>
+            <button class="test-button" onclick="testBasic('tell me about space')">🌌 "Tell me about space"</button>
+            <button class="test-button" onclick="testBasic('temperature')">🌡️ "What's the temperature?"</button>
+            
+            <div id="basicResponse" class="response-area">
+                Click any button above to see basic mode responses...
+            </div>
+        </div>
+
+        <div class="demo-section full">
+            <div class="demo-title full">🧠 Full AI Mode (With API Key)</div>
+            <p style="color: #aaa;">Complete intelligence, answers anything</p>
+            
+            <button class="test-button" onclick="testFull('what is your name')">❓ "What is your name?"</button>
+            <button class="test-button" onclick="testFull('10 + 10')">🧮 "10 + 10"</button>
+            <button class="test-button" onclick="testFull('tell me about space')">🌌 "Tell me about space"</button>
+            <button class="test-button" onclick="testFull('temperature')">🌡️ "What's the temperature?"</button>
+            
+            <div id="fullResponse" class="response-area">
+                <div style="color: #ff9800;">⚠️ Full AI mode requires a valid API key</div>
+                Set your API key above to see intelligent responses...
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let demoApiKey = '';
+        
+        // Mock sensor data for demo
+        const mockSensorData = {
+            temperature: '22.5',
+            humidity: '45',
+            light: '450',
+            motion: false,
+            moisture_status: 'MOIST'
+        };
+
+        function setApiKey() {
+            const keyInput = document.getElementById('demoApiKey');
+            const status = document.getElementById('apiKeyStatus');
+            
+            demoApiKey = keyInput.value.trim();
+            
+            if (demoApiKey) {
+                status.style.color = '#4CAF50';
+                status.textContent = '✅ API Key set! Full AI mode enabled.';
+                document.getElementById('fullResponse').innerHTML = 'API key configured! Click buttons above to see full AI responses...';
+            } else {
+                status.style.color = '#f44336';
+                status.textContent = '❌ Please enter a valid API key';
+            }
+        }
+
+        function testBasic(command) {
+            const responseArea = document.getElementById('basicResponse');
+            responseArea.innerHTML = '<div style="color: #ff9800;">🔄 Processing in basic mode...</div>';
+            
+            setTimeout(() => {
+                let response = getBasicResponse(command.toLowerCase());
+                responseArea.innerHTML = response;
+            }, 1000);
+        }
+
+        async function testFull(command) {
+            const responseArea = document.getElementById('fullResponse');
+            
+            if (!demoApiKey) {
+                responseArea.innerHTML = '<div style="color: #ff9800;">⚠️ Please set your API key above to enable full AI mode</div>';
+                return;
+            }
+            
+            responseArea.innerHTML = '<div style="color: #4CAF50;">🧠 Processing with full AI intelligence...</div>';
+            
+            try {
+                const response = await getFullAIResponse(command);
+                responseArea.innerHTML = `<div style="color: #4CAF50;">🤖 Full AI Response:</div><br>${response}`;
+            } catch (error) {
+                responseArea.innerHTML = `<div style="color: #f44336;">❌ Error: ${error.message}</div><div style="color: #aaa; margin-top: 10px;">This could be due to invalid API key, quota limits, or network issues.</div>`;
+            }
+        }
+
+        function getBasicResponse(command) {
+            if (command.includes('name') || command.includes('who are you')) {
+                return "🤖 I'm ARIA - Advanced Residential Intelligence Assistant! I'm your smart home AI companion. With my full AI capabilities enabled (via API key), I can help with anything from complex questions to deep conversations. Right now I'm in basic mode, focused on your smart home sensors.";
+            } else if (command.includes('10') && command.includes('+') && command.includes('10')) {
+                return "🧮 I can see you're asking about math! For calculations like '10 + 10 = 20' and complex mathematical operations, I need my full AI capabilities. Please configure your Gemini API key above to unlock my complete mathematical and analytical powers!";
+            } else if (command.includes('space') || command.includes('tell me about')) {
+                return "📚 I'd love to tell you stories and share knowledge about any topic! With my full AI capabilities, I can discuss history, science, technology, and much more. Please set up your API key to unlock unlimited conversations!";
+            } else if (command.includes('temperature')) {
+                return `🌡️ The current temperature is ${mockSensorData.temperature} degrees Celsius. Nice and comfortable!`;
+            } else {
+                return "🧠 I can see you're asking a question! I love answering all kinds of questions. To unlock my full knowledge and reasoning abilities for topics like science, history, current events, advice, and detailed explanations, please configure your Gemini API key in the settings above. It takes just a minute and gives me unlimited intelligence!";
+            }
+        }
+
+        async function getFullAIResponse(userInput) {
+            const contextData = {
+                sensors: mockSensorData,
+                timestamp: new Date().toLocaleString(),
+                weather_context: "Comfortable temperature. Good humidity.",
+                time_context: "It's evening on a weekday."
+            };
+
+            const systemPrompt = `You are ARIA (Advanced Residential Intelligence Assistant), a sophisticated smart home AI with personality and advanced reasoning capabilities. You're helpful, witty, empathetic, and genuinely care about the homeowner's comfort and wellbeing.
+
+🏠 CURRENT HOME STATUS:
+- Temperature: ${contextData.sensors.temperature}°C 🌡️
+- Humidity: ${contextData.sensors.humidity}% 💧
+- Light level: ${contextData.sensors.light} lux 💡
+- Motion: ${contextData.sensors.motion ? '🚶 Activity detected' : '😴 All quiet'}
+- Plant moisture: ${contextData.sensors.moisture_status} 🌱
+
+⏰ CONTEXT: ${contextData.time_context}
+🌤️ CONDITIONS: ${contextData.weather_context}
+
+You can answer ANY question - smart home related or general knowledge. Be conversational, helpful, and show your personality!`;
+
+            const response = await fetch(\`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=\${demoApiKey}\`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    contents: [{
+                        parts: [{
+                            text: \`\${systemPrompt}
+
+💬 User: \${userInput}\`
+                        }]
+                    }],
+                    generationConfig: {
+                        temperature: 0.8,
+                        topK: 40,
+                        topP: 0.95,
+                        maxOutputTokens: 600,
+                        candidateCount: 1
+                    }
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error(\`API request failed: \${response.status}\`);
+            }
+
+            const data = await response.json();
+            
+            if (data.candidates && data.candidates[0] && data.candidates[0].content) {
+                return data.candidates[0].content.parts[0].text;
+            } else {
+                throw new Error('No response from AI');
+            }
+        }
+    </script>
+</body>
+</html>

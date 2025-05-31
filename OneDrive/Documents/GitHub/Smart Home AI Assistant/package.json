@@ -1,0 +1,36 @@
+{
+  "name": "smart-home-ai-assistant",
+  "version": "1.0.0",
+  "description": "AI Voice Assistant for Smart Home IoT Dashboard",
+  "main": "index.html",
+  "scripts": {
+    "start": "live-server --port=8080",
+    "serve": "python -m http.server 8080",
+    "dev": "live-server --port=8080 --watch=."
+  },
+  "keywords": [
+    "smart-home",
+    "iot",
+    "voice-assistant",
+    "ai",
+    "dashboard",
+    "arduino",
+    "sensors"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  },
+  "dependencies": {
+    "ws": "^8.14.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/smart-home-ai-assistant.git"
+  },
+  "bugs": {
+    "url": "https://github.com/yourusername/smart-home-ai-assistant/issues"
+  },
+  "homepage": "https://github.com/yourusername/smart-home-ai-assistant#readme"
+}

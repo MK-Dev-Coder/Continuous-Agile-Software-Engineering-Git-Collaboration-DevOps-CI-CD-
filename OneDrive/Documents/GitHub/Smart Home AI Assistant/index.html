@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Voice Assistant - Smart Home Edition</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="bg-animation">
+        <div class="floating-orb orb1"></div>
+        <div class="floating-orb orb2"></div>
+        <div class="floating-orb orb3"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>AI Smart Home Assistant</h1>
+            <p>Voice-Controlled IoT Dashboard</p>
+        </div>
+
+        <div class="main-grid">
+            <!-- Left Panel - IoT Dashboard -->
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                            <polyline points="9 22 9 12 15 12 15 22"/>
+                        </svg>
+                    </div>
+                    <h3>Smart Home Devices</h3>
+                </div>
+                
+                <div class="iot-dashboard">
+                    <div class="sensor-card">
+                        <div class="sensor-header">
+                            <span class="sensor-name">Room Temperature</span>
+                            <div class="sensor-status"></div>
+                        </div>
+                        <div class="sensor-value" id="tempValue">--</div>
+                        <div class="sensor-unit">°C</div>
+                    </div>
+                    
+                    <div class="sensor-card">
+                        <div class="sensor-header">
+                            <span class="sensor-name">Humidity</span>
+                            <div class="sensor-status"></div>
+                        </div>
+                        <div class="sensor-value" id="humidityValue">--</div>
+                        <div class="sensor-unit">%</div>
+                    </div>
+                    
+                    <div class="sensor-card">
+                        <div class="sensor-header">
+                            <span class="sensor-name">Light Level</span>
+                            <div class="sensor-status"></div>
+                        </div>
+                        <div class="sensor-value" id="lightValue">--</div>
+                        <div class="sensor-unit">lux</div>
+                    </div>
+                      <div class="sensor-card">
+                        <div class="sensor-header">
+                            <span class="sensor-name">Motion Sensor</span>
+                            <div class="sensor-status"></div>
+                        </div>
+                        <div class="sensor-value" id="motionValue">--</div>
+                        <div class="sensor-unit">status</div>
+                    </div>
+                    
+                    <div class="sensor-card">
+                        <div class="sensor-header">
+                            <span class="sensor-name">Sound Level</span>
+                            <div class="sensor-status"></div>
+                        </div>
+                        <div class="sensor-value" id="soundValue">--</div>
+                        <div class="sensor-unit">raw</div>
+                    </div>
+                    
+                    <div class="sensor-card">
+                        <div class="sensor-header">
+                            <span class="sensor-name">Water Detection</span>
+                            <div class="sensor-status"></div>
+                        </div>
+                        <div class="sensor-value" id="waterValue">--</div>
+                        <div class="sensor-unit">status</div>
+                    </div>
+                    
+                    <div class="sensor-card">
+                        <div class="sensor-header">
+                            <span class="sensor-name">Soil Moisture</span>
+                            <div class="sensor-status"></div>
+                        </div>
+                        <div class="sensor-value" id="moistureValue">--</div>
+                        <div class="sensor-unit">level</div>
+                    </div>
+                    
+                    <div class="sensor-card">
+                        <div class="sensor-header">
+                            <span class="sensor-name">Distance</span>
+                            <div class="sensor-status"></div>
+                        </div>
+                        <div class="sensor-value" id="distanceValue">--</div>
+                        <div class="sensor-unit">cm</div>
+                    </div>
+                    
+                    <div class="sensor-card">
+                        <div class="sensor-header">
+                            <span class="sensor-name">RGB LED</span>
+                            <div class="sensor-status"></div>
+                        </div>
+                        <div class="sensor-value" id="rgbValue">--</div>
+                        <div class="sensor-unit">color</div>
+                    </div>
+                </div><div class="arduino-setup">
+                    <h4>WebSocket Server</h4>
+                    <div class="status-indicator">
+                        <div class="status-dot" id="arduinoStatus"></div>
+                        <span id="arduinoStatusText">Not Connected</span>
+                    </div>
+                    <div class="code-block">
+                        <code>Server: ws://localhost:3000</code>
+                    </div>
+                    <p style="font-size: 0.8em; color: var(--text-dim); margin-top: 10px;">
+                        Connect to server first, then Arduino devices can join
+                    </p>
+                </div>
+            </div>
+
+            <!-- Center Panel - Chat -->
+            <div class="card chat-container">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                        </svg>
+                    </div>
+                    <h3>Conversation</h3>
+                </div>
+                
+                <div class="chat-area" id="chatArea">
+                    <!-- Messages will appear here -->
+                </div>
+                
+                <div class="voice-controls">
+                    <button class="mic-button" id="micButton" disabled>
+                        <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/>
+                            <path d="M19 10v2a7 7 0 0 1-14 0v-2"/>
+                            <line x1="12" y1="19" x2="12" y2="23"/>
+                            <line x1="8" y1="23" x2="16" y2="23"/>
+                        </svg>
+                    </button>
+                    <div id="status" style="color: var(--text-dim); font-size: 0.9em;"></div>
+                </div>
+            </div>
+
+            <!-- Right Panel - Settings -->
+            <div class="card settings-panel">
+                <div class="card-header">
+                    <div class="card-icon">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
+                            <circle cx="12" cy="12" r="3"/>
+                            <path d="M12 1v6m0 6v6m3.22-10.22l4.24-4.24m-4.24 14.66l4.24 4.24M20 12h-6m-6 0H2m14.24-3.22l4.24-4.24M7.76 16.24l-4.24 4.24"/>
+                        </svg>
+                    </div>
+                    <h3>Settings</h3>
+                </div>                <div class="settings-section">
+                    <h4>🧠 AI Intelligence Configuration</h4>
+                    <p style="color: #aaa; font-size: 0.9em; margin-bottom: 15px;">
+                        🚀 <strong>Unlock Full AI Power!</strong> Add your Gemini API key to enable:
+                        <br>• 🧮 Math calculations (10+10, complex equations)
+                        <br>• 🌍 General knowledge questions  
+                        <br>• 💬 Natural conversations on any topic
+                        <br>• 📚 Detailed explanations and advice
+                        <br>• 🎯 Much smarter home automation insights
+                    </p>
+                    <div class="input-group">
+                        <label>Gemini API Key <span style="color: #4CAF50;">(Free to get!)</span></label>
+                        <input type="password" id="apiKeyInput" class="input-field" placeholder="Enter your free Gemini API key">
+                    </div>
+                    <button id="saveApiKey" class="button">🔓 Unlock Full AI Capabilities</button>
+                    <div id="apiStatus" style="margin-top: 10px; font-size: 0.85em;"></div>
+                    <p style="color: #888; font-size: 0.8em; margin-top: 10px;">
+                        📝 Get your free API key at <a href="https://makersuite.google.com/app/apikey" target="_blank" style="color: #4CAF50;">Google AI Studio</a>
+                    </p>
+                </div>
+
+                <div class="settings-section">
+                    <h4>Voice Settings</h4>
+                    <div class="voice-mode-selector">
+                        <div class="voice-option">
+                            <input type="radio" id="voiceDefault" name="voiceMode" value="default" checked>
+                            <div class="voice-option-info">
+                                <div class="voice-option-title">Browser Voice</div>
+                                <div class="voice-option-desc">Free, works instantly</div>
+                            </div>
+                        </div>
+                        <div class="voice-option">
+                            <input type="radio" id="voiceGoogle" name="voiceMode" value="google">
+                            <div class="voice-option-info">
+                                <div class="voice-option-title">Google Cloud TTS</div>
+                                <div class="voice-option-desc">Natural WaveNet voices</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="input-group" style="margin-top: 15px;">
+                        <label>Voice</label>
+                        <select id="voiceSelect" class="input-field"></select>
+                    </div>
+                      <div class="input-group">
+                        <label>Speed</label>
+                        <select id="speedSelect" class="input-field">
+                            <option value="0.8">0.8x</option>
+                            <option value="0.9">0.9x</option>
+                            <option value="1" selected>1x</option>
+                            <option value="1.1">1.1x</option>
+                        </select>
+                    </div>
+                    
+                    <div class="input-group">
+                        <button id="testSpeechButton" class="button" style="width: 100%; margin-top: 10px;">🔊 Test Voice</button>
+                    </div>
+                </div><div class="settings-section">
+                    <h4>WebSocket Server</h4>
+                    <button id="connectArduino" class="button">Connect to Server</button>
+                    <div class="code-block" style="margin-top: 10px;">
+                        <code>// Arduino Code Example<br>
+#include &lt;WiFiS3.h&gt;<br>
+#include &lt;ArduinoWebsockets.h&gt;<br>
+<br>
+// Send sensor data:<br>
+client.send("{\"temp\":22.5}");</code>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
