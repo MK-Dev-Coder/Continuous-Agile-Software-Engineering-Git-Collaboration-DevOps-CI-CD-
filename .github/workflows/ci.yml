@@ -34,6 +34,10 @@ jobs:
           cd backend
           # pytest or unittest can be used here
           echo "No tests yet"
+      - name: Install docker-compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
       - name: Build Docker images
         run: |
           docker-compose build
