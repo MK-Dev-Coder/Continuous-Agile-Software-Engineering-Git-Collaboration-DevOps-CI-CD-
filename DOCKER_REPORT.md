@@ -102,3 +102,18 @@ Example image usage (Markdown):
 
 ## 9. Release Notes
 See [RELEASE_NOTES_v1.0.md](RELEASE_NOTES_v1.0.md) for the release summary and suggested GitHub Release body.
+
+## 10. Provided Screenshots
+The following images were provided and added to the `screenshots/` folder. Replace these placeholder files with higher-resolution exports if needed.
+
+- `screenshots/Dockels.png` — general Docker info / volume inspect output
+- `screenshots/Docker.png` — `docker volume ls` output
+- `screenshots/DockerDirectory.png` — `docker ps` showing running containers
+- `screenshots/Dockerimmg.png` — additional Docker output / logs
+
+Inline previews:
+
+![Dockels](screenshots/Dockels.png)
+![Docker volumes](screenshots/Docker.png)
+![Docker containers](screenshots/DockerDirectory.png)
+![Docker image info](screenshots/Dockerimmg.png)
