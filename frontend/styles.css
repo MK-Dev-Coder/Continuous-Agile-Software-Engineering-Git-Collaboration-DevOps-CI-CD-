@@ -14,29 +14,33 @@ h1 {
 	box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 .student-form {
-	display: flex;
-	gap: 1rem;
-	margin: 2rem;
-	background: #fff;
-	padding: 1.5rem 2rem;
-	border-radius: 10px;
-	box-shadow: 0 2px 8px rgba(0,0,0,0.07);
-	align-items: center;
-	max-width: 500px;
+    display: flex;
+    gap: 1rem;
+    margin: 2rem;
+    background: #fff;
+    padding: 1.5rem 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    align-items: center;
+    max-width: 900px;
 }
-.student-form input[type="text"] {
-	flex: 1;
-	padding: 0.7rem 1rem;
-	border: 1px solid #cfd8dc;
-	border-radius: 6px;
-	font-size: 1rem;
-	background: #f9fafb;
-	transition: border 0.2s;
+.student-form input[type="text"],
+.student-form input[type="email"],
+.student-form input[type="tel"] {
+    flex: 1;
+    padding: 0.7rem 1rem;
+    border: 1px solid #cfd8dc;
+    border-radius: 6px;
+    font-size: 1rem;
+    background: #f9fafb;
+    transition: border 0.2s;
 }
-.student-form input[type="text"]:focus {
-	border: 1.5px solid #0074D9;
-	outline: none;
-	background: #fff;
+.student-form input[type="text"]:focus,
+.student-form input[type="email"]:focus,
+.student-form input[type="tel"]:focus {
+    border: 1.5px solid #0074D9;
+    outline: none;
+    background: #fff;
 }
 .student-form button {
 	background: linear-gradient(90deg, #0074D9 60%, #00bcd4 100%);
