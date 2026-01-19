@@ -40,6 +40,5 @@ How to run locally:
 2. docker-compose up
 3. Open http://localhost:8080
 
-```
 
 
