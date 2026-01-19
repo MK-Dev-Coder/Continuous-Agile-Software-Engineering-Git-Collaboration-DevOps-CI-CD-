@@ -40,9 +40,7 @@ How to run locally:
 2. docker-compose up
 3. Open http://localhost:8080
 
-See DOCKER_REPORT.md for architecture notes and suggested screenshots to add to the release.
+
 ```
 
-## Notes for Maintainers
-- Add actual screenshots to the `screenshots/` folder and update `DOCKER_REPORT.md`.
-- Optionally create a GitHub Release from this tag and paste the suggested body above.
+
