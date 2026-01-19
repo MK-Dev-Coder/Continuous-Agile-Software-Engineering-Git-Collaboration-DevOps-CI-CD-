@@ -14,22 +14,6 @@
   - MySQL data: `db_data` (named volume)
   - DB init script: bind mount (`./db/init.sql`)
 
-# Docker & Architecture Report
-
-## 1. Architecture Description
-- **Multi-container setup:**
-  - Nginx (frontend)
-  - Flask (backend API)
-  - MySQL (database)
-- **Communication:** All containers use a user-defined Docker network (`studentnet`).
-- **Exposed ports:**
-  - Nginx: 8080 (host) → 80 (container)
-  - Flask: 5000 (host) → 5000 (container)
-  - MySQL: 3306 (internal only)
-- **Volumes:**
-  - MySQL data: `db_data` (named volume)
-  - DB init script: bind mount (`./db/init.sql`)
-
 ## 2. Architecture Diagram
 
 ```
@@ -83,6 +67,11 @@ docker-compose up
 - Docker images are built for both backend and frontend.
 - Linting is performed on Dockerfiles using hadolint.
 
+## 8. Tests
+The backend unit tests are executed using the `run_tests.ps1` helper (optionally using Docker). Locally the `run_tests.ps1 -UseDocker` script was used to run the tests and returned success in the development environment. The CI workflow also runs the same tests as part of the pipeline.
+
+Add `screenshots/tests_passed.png` if you want a captured image of the test run output to be embedded here.
+
 ### Example Pipeline Output
 _Replace the placeholder below with a screenshot of a successful GitHub Actions run (e.g., `.github/workflows/ci.yml` passing)._
 
@@ -117,3 +106,8 @@ Inline previews:
 ![Docker volumes](screenshots/Docker.png)
 ![Docker containers](screenshots/DockerDirectory.png)
 ![Docker image info](screenshots/Dockerimmg.png)
+
+## 11. Git Demos & Rollback Evidence
+The repository includes a `docs/rollback_demo.md` file which documents a safe `git revert` demo and an unsafe `git reset --hard` demo. For the assignment deliverable, capture terminal screenshots of the commands and `git log --oneline` output before/after each operation.
+
+See `docs/rollback_demo.md` for the commands and explanatory notes.
