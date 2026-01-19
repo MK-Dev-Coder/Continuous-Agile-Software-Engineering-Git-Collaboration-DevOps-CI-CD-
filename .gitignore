@@ -1,0 +1,14 @@
+# Ignore report files and screenshots generated for reports
+AGILE_REPORT.md
+DOCKER_REPORT.md
+REPORT_FULL.md
+RELEASE_NOTES*.md
+screenshots/
+error.txt
+
+# Python
+__pycache__/
+*.pyc
+
+# Logs
+*.log
