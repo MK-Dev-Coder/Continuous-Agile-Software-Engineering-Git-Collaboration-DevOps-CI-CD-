@@ -32,8 +32,7 @@ jobs:
       - name: Run backend tests
         run: |
           cd backend
-          # pytest or unittest can be used here
-          echo "No tests yet"
+          python -m pytest -q
       - name: Install docker-compose
         run: |
           sudo apt-get update
