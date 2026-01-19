@@ -34,50 +34,35 @@ students = [
 ]
 
 
-@app.route('/api/students', methods=['GET'])
-def get_students():
-    """Return the full list of students as JSON.
+@app.route('/api/students', methods=['GET', 'POST'])
+def students_handler():
+    """Handle collection-level operations for students.
 
-    This endpoint returns a JSON array of student objects. For large
-    datasets, a paginated approach would be preferred; this simplistic
-    design keeps the example accessible in teaching scenarios.
+    Methods supported:
+    - GET: return the list of students.
+    - POST: append a new student. Required fields: `name`, `email`.
+
+    Phone is optional in this handler to keep the frontend flexible and
+    to match existing tests that only require `name` and `email`.
     """
-    return jsonify(students)
 
+    if request.method == 'GET':
+        return jsonify(students)
 
-@app.route('/api/students', methods=['POST'])
-def add_student():
-    """Add a new student record.
+    # POST - add a new student
+    data = request.get_json() or {}
+    name = data.get('name')
+    email = data.get('email')
+    phone = data.get('phone')
 
-    Expected JSON payload: {"name": str, "email": str, "phone": str}
+    # Validate required fields: name and email must be present.
+    if not name or not email:
+        return jsonify({'error': 'fields "name" and "email" are required'}), 400
 
-    Behaviour:
-    - Returns HTTP 201 and the created resource on success.
-    - Returns HTTP 400 with an error message when required fields are
-      missing. This illustrates client error reporting.
-    """
-    data = request.get_json()
-
-    # Minimal required-field checks: serve as a clear example of
-    # returning HTTP 400 for invalid client input.
-    if not data or 'name' not in data or not data['name']:
-        return jsonify({'error': 'Name is required'}), 400
-    if 'email' not in data or not data['email']:
-        return jsonify({'error': 'Email is required'}), 400
-    if 'phone' not in data or not data['phone']:
-        return jsonify({'error': 'Phone number is required'}), 400
-
-    # Deterministic id allocation for the in-memory list. Production
-    # systems should use database-generated identifiers or UUIDs.
-    new_id = max([s['id'] for s in students], default=0) + 1
-    student = {
-        "id": new_id,
-        "name": data['name'],
-        "email": data['email'],
-        "phone": data['phone']
-    }
-    students.append(student)
-    return jsonify(student), 201
+    new_id = max((s['id'] for s in students), default=0) + 1
+    new_student = {'id': new_id, 'name': name, 'email': email, 'phone': phone}
+    students.append(new_student)
+    return jsonify(new_student), 201
 
 
 if __name__ == '__main__':
