@@ -3,10 +3,12 @@ student-directory-app/AGILE_REPORT.md
 student-directory-app/DOCKER_REPORT.md
 student-directory-app/REPORT_FULL.md
 student-directory-app/RELEASE_NOTES*.md
+student-directory-app/RELEASE_NOTES_v1.0.md
 AGILE_REPORT.md
 DOCKER_REPORT.md
 REPORT_FULL.md
 RELEASE_NOTES*.md
+RELEASE_NOTES_v1.0.md
 
 # Ignore local screenshots and temporary files
 student-directory-app/screenshots/
