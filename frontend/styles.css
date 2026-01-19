@@ -1,0 +1,71 @@
+body {
+	font-family: 'Segoe UI', Arial, sans-serif;
+	background: #f4f6fb;
+	margin: 0;
+	padding: 0;
+}
+h1 {
+	background: linear-gradient(90deg, #0074D9 60%, #00bcd4 100%);
+	color: #fff;
+	padding: 1.5rem 2rem;
+	margin: 0;
+	font-size: 2.2rem;
+	letter-spacing: 1px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+.student-form {
+    display: flex;
+    gap: 1rem;
+    margin: 2rem;
+    background: #fff;
+    padding: 1.5rem 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    align-items: center;
+    max-width: 900px;
+}
+.student-form input[type="text"],
+.student-form input[type="email"],
+.student-form input[type="tel"] {
+    flex: 1;
+    padding: 0.7rem 1rem;
+    border: 1px solid #cfd8dc;
+    border-radius: 6px;
+    font-size: 1rem;
+    background: #f9fafb;
+    transition: border 0.2s;
+}
+.student-form input[type="text"]:focus,
+.student-form input[type="email"]:focus,
+.student-form input[type="tel"]:focus {
+    border: 1.5px solid #0074D9;
+    outline: none;
+    background: #fff;
+}
+.student-form button {
+	background: linear-gradient(90deg, #0074D9 60%, #00bcd4 100%);
+	color: #fff;
+	border: none;
+	border-radius: 6px;
+	padding: 0.7rem 1.5rem;
+	font-size: 1rem;
+	cursor: pointer;
+	font-weight: 500;
+	box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+	transition: background 0.2s;
+}
+.student-form button:hover {
+	background: linear-gradient(90deg, #005fa3 60%, #0097a7 100%);
+}
+#student-list {
+	margin: 2rem;
+	background: #fff;
+	padding: 1.5rem 2rem;
+	border-radius: 10px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+	max-width: 500px;
+}
+ul {
+	padding-left: 1.2rem;
+	font-size: 1.1rem;
+}

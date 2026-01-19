@@ -1,28 +1,14 @@
-# Ignore generated and local report files
-student-directory-app/AGILE_REPORT.md
-student-directory-app/DOCKER_REPORT.md
-student-directory-app/REPORT_FULL.md
-student-directory-app/RELEASE_NOTES*.md
-student-directory-app/RELEASE_NOTES_v1.0.md
+# Ignore report files and screenshots generated for reports
 AGILE_REPORT.md
 DOCKER_REPORT.md
 REPORT_FULL.md
 RELEASE_NOTES*.md
-RELEASE_NOTES_v1.0.md
-
-# Ignore local screenshots and temporary files
-student-directory-app/screenshots/
 screenshots/
-*.log
 error.txt
 
-# Python cache
+# Python
 __pycache__/
 *.pyc
 
-# Node/npm
-node_modules/
-
-# OS files
-.DS_Store
-Thumbs.db
+# Logs
+*.log
