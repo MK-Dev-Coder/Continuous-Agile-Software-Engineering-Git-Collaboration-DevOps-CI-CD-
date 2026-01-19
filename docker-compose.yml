@@ -1,0 +1,50 @@
+version: '3.8'
+services:
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: student_directory
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - studentnet
+    restart: always
+
+  backend:
+    build:
+      context: ./backend
+    image: student-directory-backend:latest
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+      - MYSQL_HOST=db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=example
+      - MYSQL_DATABASE=student_directory
+    depends_on:
+      - db
+    networks:
+      - studentnet
+    restart: always
+
+  frontend:
+    build:
+      context: ./frontend
+    image: student-directory-frontend:latest
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    networks:
+      - studentnet
+    restart: always
+
+volumes:
+  db_data:
+
+networks:
+  studentnet:
+    driver: bridge
