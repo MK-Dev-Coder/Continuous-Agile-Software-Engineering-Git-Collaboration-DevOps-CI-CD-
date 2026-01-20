@@ -31,5 +31,4 @@ Run backend tests (inside container):
 docker exec student-directory-app-backend-1 python -m pytest -q
 ```
 
-Notes
-- This README is a short developer guide — see project docs for fuller reports and CI details.
+
